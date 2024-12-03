@@ -1,9 +1,8 @@
+use bevy_math::{Quat, Vec3};
 pub use crate::{drivers::*, handedness::*, rig::CameraRig};
 
 #[test]
 fn orbit_example_compile_test() {
-    use glam::Vec3;
-
     let mut camera: CameraRig = CameraRig::builder()
         .with(YawPitch::new().yaw_degrees(45.0).pitch_degrees(-30.0))
         .with(Smooth::new_rotation(1.5))
@@ -30,8 +29,6 @@ fn orbit_example_compile_test() {
 
 #[test]
 fn follow_example_compile_test() {
-    use glam::{Quat, Vec3};
-
     #[derive(Default)]
     struct Car {
         position: Vec3,
@@ -62,8 +59,6 @@ fn follow_example_compile_test() {
 
 #[test]
 fn lookat_example_compile_test() {
-    use glam::Vec3;
-
     let mut camera: CameraRig = CameraRig::builder()
         .with(Position::new(Vec3::Y * 3.0))
         .with(LookAt::new(Vec3::ZERO))
@@ -78,8 +73,6 @@ fn lookat_example_compile_test() {
 
 #[test]
 fn free_example_compile_test() {
-    use glam::Vec3;
-
     let mut camera: CameraRig = CameraRig::builder()
         .with(Position::new(Vec3::Y))
         .with(YawPitch::new())

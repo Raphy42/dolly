@@ -1,52 +1,41 @@
-use std::marker::PhantomData;
+//use std::marker::PhantomData;
 
-use glam::Vec3;
+//use glam::Vec3;
+use bevy_math::Vec3;
+use bevy_transform::prelude::Transform;
 
+use crate::{driver::RigDriver, rig::RigUpdateParams};
+
+/*
 use crate::{
     driver::RigDriver, handedness::Handedness, rig::RigUpdateParams, transform::Transform,
 };
+*/
 
 /// Directly sets the position of the camera
-#[derive(Debug)]
+#[derive(Default, Debug)]
 pub struct Position {
-    pub position: mint::Point3<f32>,
-}
-
-impl Default for Position {
-    fn default() -> Self {
-        Self {
-            position: Vec3::default().into(),
-        }
-    }
+    pub position: Vec3,
 }
 
 impl Position {
-    pub fn new<P>(position: P) -> Self
-    where
-        P: Into<mint::Point3<f32>>,
-    {
-        let position = position.into();
-
+    ///
+    pub fn new(position: Vec3) -> Self {
         Self { position }
     }
 
     /// Add the specified vector to the position of this component
-    pub fn translate<V>(&mut self, move_vec: V)
-    where
-        V: Into<mint::Vector3<f32>>,
-    {
-        let position: Vec3 = From::from(self.position);
-        let move_vec: Vec3 = move_vec.into().into();
-        self.position = (position + move_vec).into();
+    pub fn translate(&mut self, move_vec: Vec3) {
+        self.position += move_vec;
     }
 }
 
-impl<H: Handedness> RigDriver<H> for Position {
-    fn update(&mut self, params: RigUpdateParams<H>) -> Transform<H> {
+impl RigDriver for Position {
+    fn update(&mut self, params: RigUpdateParams) -> Transform {
         Transform {
-            position: self.position,
+            translation: self.position,
             rotation: params.parent.rotation,
-            phantom: PhantomData,
+            scale: Vec3::ONE,
         }
     }
 }

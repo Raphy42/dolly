@@ -6,14 +6,11 @@ license = "MIT OR Apache-2.0"
 description = "Composable camera rigs"
 repository = "https://github.com/h3r2tic/dolly"
 documentation = "https://docs.rs/dolly"
-keywords = ["gamedev", "camera", "3d"]
+keywords = ["gamedev", "camera"]
 categories = ["game-development"]
 readme = "crates-io.md"
 rust-version = "1.68.2"
 
 [dependencies]
-glam = { version = ">=0.21, <=0.28", features = ["mint"] }
-mint = "0.5.8"
-
-[dev-dependencies]
-macroquad = "0.4"
+bevy_math = "0.15.0"
+bevy_transform = "0.15.0"
